@@ -223,6 +223,13 @@ public interface ModelSlot<RD extends ResourceData<RD> & TechnologyObject<?>> ex
 
 	public String getModelSlotName();
 
+	/**
+	 * Event raised when the specified instance of this model slot has been connected
+	 *
+	 * @param instance The instance of this model slot
+	 */
+	public void onConnect(ModelSlotInstance<? extends ModelSlot<RD>, RD> instance);
+
 	public static abstract class ModelSlotImpl<RD extends ResourceData<RD> & TechnologyObject<?>> extends FlexoRoleImpl<RD> implements
 			ModelSlot<RD> {
 
@@ -628,6 +635,11 @@ public interface ModelSlot<RD extends ResourceData<RD> & TechnologyObject<?>> ex
 		@Override
 		public boolean isReadOnly() {
 			return false;
+		}
+
+		@Override
+		public void onConnect(ModelSlotInstance<? extends ModelSlot<RD>, RD> instance) {
+			// by default, do nothing
 		}
 	}
 

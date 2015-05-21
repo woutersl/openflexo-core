@@ -49,6 +49,7 @@ import java.util.logging.Logger;
 
 import org.openflexo.connie.BindingVariable;
 import org.openflexo.foundation.FlexoEditor;
+import org.openflexo.foundation.FlexoObserver;
 import org.openflexo.foundation.FlexoProject;
 import org.openflexo.foundation.fml.FlexoConcept;
 import org.openflexo.foundation.fml.FlexoProperty;
@@ -249,6 +250,11 @@ public interface VirtualModelInstance extends FlexoConceptInstance, ResourceData
 	 * @return
 	 */
 	public ObjectLookupResult lookup(Object object);
+
+	/**
+	 * Event raised when this instance was just deserialized
+	 */
+	public void onDeserialized();
 
 	public static abstract class VirtualModelInstanceImpl extends FlexoConceptInstanceImpl implements VirtualModelInstance {
 
@@ -881,6 +887,12 @@ public interface VirtualModelInstance extends FlexoConceptInstance, ResourceData
 
 		}
 
+		@Override
+		public void onDeserialized() {
+			for (ModelSlotInstance slotInstance : getModelSlotInstances()) {
+				slotInstance.getModelSlot().onConnect(slotInstance);
+			}
+		}
 	}
 
 	public class ObjectLookupResult {

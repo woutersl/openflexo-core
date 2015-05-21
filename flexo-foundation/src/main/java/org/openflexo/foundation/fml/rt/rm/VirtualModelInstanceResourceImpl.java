@@ -253,6 +253,7 @@ public abstract class VirtualModelInstanceResourceImpl extends PamelaResourceImp
 			}
 		}*/
 
+		returned.onDeserialized();
 		return returned;
 	}
 

@@ -136,6 +136,7 @@ public abstract class CreateVirtualModelInstance<A extends CreateVirtualModelIns
 				ModelSlotInstance msi = configuration.createModelSlotInstance(newVirtualModelInstance, getFocusedObject());
 				msi.setVirtualModelInstance(newVirtualModelInstance);
 				newVirtualModelInstance.addToModelSlotInstances(msi);
+				ms.onConnect(msi);
 			} else {
 				throw new InvalidArgumentException("Wrong configuration for model slot " + configuration.getModelSlot() + " configuration="
 						+ configuration);
